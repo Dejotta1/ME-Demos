@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demos On-line — ManageEngine</title>
+  <meta name="description" content="Acesso rápido aos ambientes de demonstração oficiais da ManageEngine, organizados por categoria.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>🚀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0d0f17; --bg2:#12151f; --bg3:#181c28; --bg4:#1e2335;
+      --border:#1e2438; --border2:#252c40; --border3:#303750;
+      --text:#edf0fa; --text2:#8894ab; --text3:#4a556a;
+      --green:#5af0a0;  --green-dim:rgba(90,240,160,.10);
+      --blue:#4d9fff;   --blue-dim:rgba(77,159,255,.10);
+      --purple:#a97ff5; --purple-dim:rgba(169,127,245,.10);
+      --amber:#ffb340;  --amber-dim:rgba(255,179,64,.10);
+      --red:#f04f5e;    --red-dim:rgba(240,79,94,.10);
+      --cyan:#33e0ff;   --cyan-dim:rgba(51,224,255,.10);
+      --teal:#3ddba8;
+      --mono:'JetBrains Mono',monospace; --sans:'DM Sans',sans-serif; --display:'Syne',sans-serif;
+      --sidebar-w:260px; --r:10px; --r-lg:14px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--bg2)}
+    ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+    a{color:inherit}
+    [hidden]{display:none!important}
+    :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+    /* ── SIDEBAR ── */
+    .sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:200;overflow-y:auto;transition:transform .3s ease}
+    .sidebar-logo{padding:22px 18px 18px;border-bottom:1px solid var(--border)}
+    .logo-badge{display:inline-flex;align-items:center;gap:6px;background:var(--blue-dim);border:1px solid rgba(77,159,255,.25);border-radius:5px;padding:2px 9px 2px 7px;margin-bottom:10px}
+    .logo-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 2.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .logo-badge span{font-family:var(--mono);font-size:9.5px;color:var(--teal);letter-spacing:.8px;font-weight:500}
+    .brand{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.5px;line-height:1.15}
+    .brand em{color:var(--blue);font-style:normal}
+    .brand-sub{font-family:var(--mono);font-size:10.5px;color:var(--text3);margin-top:5px}
+    .nav-section{padding:10px 0 2px}
+    .nav-label{padding:5px 18px;font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.8px;color:var(--text3)}
+    .nav-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 18px;font:500 13px var(--sans);color:var(--text2);text-decoration:none;background:none;border:none;cursor:pointer;text-align:left;transition:all .15s ease}
+    .nav-item:hover,.nav-item.active{color:var(--text);background:var(--bg3)}
+    .nav-item.active{box-shadow:inset 2px 0 0 var(--c,var(--blue))}
+    .nav-item-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;background:var(--cd,var(--blue-dim));border:1px solid var(--border2)}
+    .nav-item-text{flex:1}
+    .nav-item-count{font-family:var(--mono);font-size:10px;color:var(--text3)}
+    .nav-sep{height:1px;background:var(--border);margin:6px 18px}
+    .sidebar-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border)}
+    .status-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3)}
+    .status-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0}
+    .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:300;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--text2);font-size:16px;line-height:1}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150}
+
+    /* ── MAIN ── */
+    .main{margin-left:var(--sidebar-w);min-height:100vh;display:flex;flex-direction:column}
+    .hero{padding:44px 48px 28px;border-bottom:1px solid var(--border)}
+    .hero-eyebrow{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--teal)}
+    .hero h1{font-family:var(--display);font-size:36px;font-weight:800;line-height:1.08;letter-spacing:-1.2px;margin-bottom:10px}
+    .hero h1 .accent{color:var(--blue)}
+    .hero-desc{color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:24px}
+    .hero-stats{display:flex;align-items:center;gap:20px;margin-bottom:26px;flex-wrap:wrap}
+    .hero-stat{display:flex;align-items:baseline;gap:7px}
+    .hero-stat-num{font-family:var(--display);font-size:22px;font-weight:800}
+    .hero-stat-label{font-size:12px;color:var(--text2)}
+    .hero-divider{width:1px;height:24px;background:var(--border2)}
+
+    .search{display:flex;align-items:center;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);max-width:560px;transition:border-color .15s,box-shadow .15s}
+    .search:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-dim)}
+    .search-icon{padding:0 10px 0 14px;color:var(--text3);display:flex}
+    .search input{flex:1;min-width:0;background:none;border:none;outline:none;color:var(--text);font:13px var(--sans);padding:11px 0}
+    .search input::placeholder{color:var(--text3)}
+    .search input::-webkit-search-cancel-button{display:none}
+    .kbd{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);background:var(--bg3);border-radius:5px;padding:2px 6px;margin-right:10px;white-space:nowrap}
+    .search-clear{display:none;background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:0 12px;line-height:1}
+    .search-clear:hover{color:var(--text)}
+    .search.has-value .search-clear{display:block}
+    .search.has-value .kbd{display:none}
+
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .chip{display:inline-flex;align-items:center;gap:6px;font:500 12px var(--sans);color:var(--text2);background:var(--bg2);border:1px solid var(--border2);border-radius:99px;padding:5px 12px;cursor:pointer;transition:all .15s}
+    .chip:hover{color:var(--text);border-color:var(--border3)}
+    .chip.active{color:var(--c,var(--blue));background:var(--cd,var(--blue-dim));border-color:var(--c,var(--blue))}
+    .chip-count{font-family:var(--mono);font-size:10px;opacity:.75}
+
+    /* ── CONTENT ── */
+    .content{padding:0 48px 60px;flex:1}
+    .section{border-bottom:1px solid var(--border);padding-bottom:26px}
+    .section:last-child{border-bottom:none}
+    .section-header{display:flex;align-items:center;gap:10px;padding:26px 0 14px}
+    .section-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--cd);border:1px solid var(--border2)}
+    .section-title{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.3px}
+    .section-count{font-family:var(--mono);font-size:10px;color:var(--text3);border:1px solid var(--border2);border-radius:99px;padding:1px 8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+
+    .card{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;transition:border-color .2s,transform .2s,background .2s;overflow:hidden}
+    .card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--c);opacity:0;transition:opacity .2s}
+    .card:hover{border-color:var(--border3);background:var(--bg3);transform:translateY(-2px)}
+    .card:hover::before{opacity:1}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .tag{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--c);background:var(--cd);border-radius:4px;padding:2px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .badge-video{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--amber);background:var(--amber-dim);border-radius:4px;padding:2px 7px;white-space:nowrap}
+    .card-name{font-family:var(--display);font-size:15.5px;font-weight:700;letter-spacing:-.2px;line-height:1.25}
+    .card-domain{font-family:var(--mono);font-size:10.5px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .card-obs{font-size:12px;color:var(--text2);margin-top:-4px}
+    .card-actions{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:600 12px var(--sans);border-radius:8px;padding:7px 12px;cursor:pointer;text-decoration:none;transition:all .15s;border:1px solid transparent;white-space:nowrap}
+    .btn-primary{flex:1;color:var(--c);background:var(--cd);border-color:color-mix(in srgb,var(--c) 30%,transparent)}
+    .btn-primary:hover{background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--text)}
+    .btn-ghost{color:var(--text2);background:transparent;border-color:var(--border2)}
+    .btn-ghost:hover{color:var(--text);border-color:var(--border3)}
+    .btn-ghost.ok{color:var(--green);border-color:rgba(90,240,160,.35)}
+
+    .empty{display:none;text-align:center;padding:70px 20px;color:var(--text2)}
+    .empty.show{display:block}
+    .empty-icon{font-size:28px;margin-bottom:8px}
+    .empty-title{font-family:var(--display);font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px}
+    .empty button{margin-top:14px}
+
+    .footer{padding:22px 48px 30px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text3)}
+    .footer strong{color:var(--text2);font-weight:500}
+    .footer a{color:var(--text2);text-decoration:none}
+    .footer a:hover{color:var(--blue)}
+
+    .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:var(--bg4);border:1px solid var(--border3);color:var(--text);font-size:12.5px;padding:9px 16px;border-radius:9px;opacity:0;pointer-events:none;transition:all .2s;z-index:400}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0)}
+      .sidebar-overlay.open{display:block}
+      .hamburger{display:block}
+      .main{margin-left:0}
+      .hero{padding:64px 20px 24px}
+      .content{padding:0 20px 48px}
+      .footer{padding:20px}
+    }
+    @media (max-width:640px){
+      .hero h1{font-size:28px}
+      .hero-stats{gap:14px}
+      .hero-stat-num{font-size:19px}
+      .kbd{display:none}
+      .grid{grid-template-columns:1fr}
+    }
+    @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+
+  <button class="hamburger" id="hamburger" aria-label="Abrir menu">☰</button>
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar" aria-label="Categorias">
+    <div class="sidebar-logo">
+      <div class="logo-badge"><div class="logo-badge-dot"></div><span>Online</span></div>
+      <div class="brand">ME <em>Demos</em></div>
+      <div class="brand-sub">// demos on-line manageengine</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Categorias</div>
+      <div id="navCats"></div>
+    </div>
+
+    <div class="nav-sep"></div>
+
+    <div class="nav-section">
+      <div class="nav-label">Recursos</div>
+      <a class="nav-item" href="https://dejotta1.github.io/IT_Hub/" target="_blank" rel="noopener">
+        <span class="nav-item-icon">📚</span><span class="nav-item-text">IT Hub · Guias</span><span class="nav-item-count">↗</span>
+      </a>
+      <a class="nav-item" href="https://www.manageengine.com/productdocument.html" target="_blank" rel="noopener">
+        <span class="nav-item-icon" style="--cd:var(--green-dim)">📄</span><span class="nav-item-text">Documentação ME</span><span class="nav-item-count">↗</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="status-row"><div class="status-dot"></div><span id="footerStatus">Demos · GitHub Pages</span></div>
+    </div>
+  </nav>
+
+  <div class="main">
+    <header class="hero">
+      <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div>IT Hub · ManageEngine</div>
+      <h1>Demos <span class="accent">On-line</span></h1>
+      <p class="hero-desc">Ambientes de demonstração oficiais da ManageEngine, prontos para explorar direto no navegador, sem instalar nada.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num" id="statTotal" style="color:var(--blue)">0</span><span class="hero-stat-label">Demos</span></div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num" id="statCats" style="color:var(--purple)">0</span><span class="hero-stat-label">Categorias</span></div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat"><span class="hero-stat-num" id="statVideo" style="color:var(--amber)">0</span><span class="hero-stat-label">Só vídeo</span></div>
+      </div>
+
+      <div class="search" id="searchBox">
+        <span class="search-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </span>
+        <input type="search" id="search" placeholder="Buscar produto… ex.: OpManager, PAM, AD" autocomplete="off" aria-label="Buscar demo">
+        <button class="search-clear" id="searchClear" aria-label="Limpar busca">×</button>
+        <span class="kbd">Ctrl K</span>
+      </div>
+
+      <div class="chips" id="chips" role="toolbar" aria-label="Filtrar por categoria"></div>
+    </header>
+
+    <main class="content" id="content"></main>
+
+    <div class="empty" id="empty">
+      <div class="empty-icon">🔍</div>
+      <div class="empty-title">Nenhuma demo encontrada</div>
+      <div>Tente outro termo ou outra categoria.</div>
+      <button class="btn btn-ghost" id="resetBtn">Limpar filtros</button>
+    </div>
+
+    <footer class="footer">
+      <div>Lista atualizada em <strong id="updated">—</strong> · Demos públicas mantidas pela ManageEngine. Alguns ambientes podem pedir cadastro ou estar fora do ar temporariamente.</div>
+      <div>Desenvolvido por <a href="https://www.linkedin.com/in/djalma-gusmao/" target="_blank" rel="noopener">Djalma Gabriel Gusmão ↗</a></div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  /* ============================================================
+     DADOS — para adicionar/editar uma demo, mexa só aqui.
+     categoria = id de uma das categorias; tipo = "live" ou "video"
+     ============================================================ */
+  const DATA = {
+  "atualizado_em": "2026-10-16",
+  "fonte": "Demos_On-line.xlsx",
+  "categorias": [
+    {
+      "id": "endpoint",
+      "nome": "Endpoint & UEM",
+      "cor": "blue",
+      "icone": "💻"
+    },
+    {
+      "id": "identity",
+      "nome": "Identidade & AD",
+      "cor": "purple",
+      "icone": "🗂️"
+    },
+    {
+      "id": "pam",
+      "nome": "Acesso Privilegiado (PAM)",
+      "cor": "amber",
+      "icone": "🔑"
+    },
+    {
+      "id": "itsm",
+      "nome": "ITSM & Ativos",
+      "cor": "green",
+      "icone": "🎧"
+    },
+    {
+      "id": "network",
+      "nome": "Rede & Monitoramento",
+      "cor": "cyan",
+      "icone": "📡"
+    },
+    {
+      "id": "siem",
+      "nome": "SIEM & Segurança",
+      "cor": "red",
+      "icone": "🛡️"
+    },
+    {
+      "id": "analytics",
+      "nome": "Analytics & Apps",
+      "cor": "blue",
+      "icone": "📊"
+    },
+    {
+      "id": "msp",
+      "nome": "MSP",
+      "cor": "purple",
+      "icone": "🏢"
+    }
+  ],
+  "demos": [
+    {
+      "nome": "Endpoint Central",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.endpointcentralplus.com/"
+    },
+    {
+      "nome": "Patch Manager Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.patchmanagerplus.com/client#/demo"
+    },
+    {
+      "nome": "Mobile Device Manager Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.mobiledevicemanagerplus.com/client#/demo"
+    },
+    {
+      "nome": "OS Deployer",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.osdeployer.com/client#/demo"
+    },
+    {
+      "nome": "Vulnerability Manager Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.vulnerabilitymanagerplus.com/"
+    },
+    {
+      "nome": "Application Control Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.applicationcontrolplus.com/"
+    },
+    {
+      "nome": "Device Control Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.devicecontrolplus.com/"
+    },
+    {
+      "nome": "Browser Security Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.browsersecurityplus.com/"
+    },
+    {
+      "nome": "Malware Protection Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.malwareprotectionplus.com/"
+    },
+    {
+      "nome": "Ransomware Protection Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.ransomwareprotectionplus.com/"
+    },
+    {
+      "nome": "Endpoint DLP Plus",
+      "categoria": "endpoint",
+      "tipo": "live",
+      "url": "https://demo.endpointdlpplus.com/"
+    },
+    {
+      "nome": "ADManager Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.admanagerplus.com/"
+    },
+    {
+      "nome": "ADAudit Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.adauditplus.com/"
+    },
+    {
+      "nome": "ADSelfService Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.adselfserviceplus.com/authorization.do"
+    },
+    {
+      "nome": "Exchange Reporter Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.exchangereporterplus.com/exchange/index.html"
+    },
+    {
+      "nome": "RecoveryManager Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.recoverymanagerplus.com/"
+    },
+    {
+      "nome": "Identity360",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://id360.manageengine.com/demo"
+    },
+    {
+      "nome": "M365 Manager Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.m365managerplus.com/webclient/index.html"
+    },
+    {
+      "nome": "SharePoint Manager Plus",
+      "categoria": "identity",
+      "tipo": "live",
+      "url": "https://demo.sharepointmanagerplus.com/"
+    },
+    {
+      "nome": "PAM360",
+      "categoria": "pam",
+      "tipo": "live",
+      "url": "https://pam360.manageenginedemo.com/PassTrixMain.cc"
+    },
+    {
+      "nome": "Password Manager Pro",
+      "categoria": "pam",
+      "tipo": "live",
+      "url": "https://demo.passwordmanagerpro.com/"
+    },
+    {
+      "nome": "Access Manager Plus",
+      "categoria": "pam",
+      "tipo": "live",
+      "url": "https://demo.accessmanagerplus.com/"
+    },
+    {
+      "nome": "Key Manager Plus",
+      "categoria": "pam",
+      "tipo": "live",
+      "url": "https://demo.keymanagerplus.com/apiclient/index.jsp"
+    },
+    {
+      "nome": "ServiceDesk Plus",
+      "categoria": "itsm",
+      "tipo": "live",
+      "url": "https://demo.servicedeskplus.com/"
+    },
+    {
+      "nome": "SupportCenter Plus",
+      "categoria": "itsm",
+      "tipo": "live",
+      "url": "https://demo.supportcenterplus.com/"
+    },
+    {
+      "nome": "AssetExplorer",
+      "categoria": "itsm",
+      "tipo": "live",
+      "url": "https://demo.assetexplorer.com/"
+    },
+    {
+      "nome": "OpManager Plus",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.opmanagerplus.com/"
+    },
+    {
+      "nome": "OpManager",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.opmanager.com/"
+    },
+    {
+      "nome": "Applications Manager",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.appmanager.com/index.do"
+    },
+    {
+      "nome": "Site24x7",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://www.site24x7.com/app/demo#/home/monitors"
+    },
+    {
+      "nome": "NetFlow Analyzer",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.netflowanalyzer.com/"
+    },
+    {
+      "nome": "Network Configuration Manager",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.networkconfigurationmanager.com/"
+    },
+    {
+      "nome": "Firewall Analyzer",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.fwanalyzer.com/"
+    },
+    {
+      "nome": "OpUtils",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://demo.oputils.com/"
+    },
+    {
+      "nome": "DDI Central",
+      "categoria": "network",
+      "tipo": "live",
+      "url": "https://ddicentral.manageenginedemo.com/#/login"
+    },
+    {
+      "nome": "CloudDNS",
+      "categoria": "network",
+      "tipo": "video",
+      "url": "https://youtu.be/EnL9GaEsm5o",
+      "obs": "Apenas vídeo"
+    },
+    {
+      "nome": "Log360",
+      "categoria": "siem",
+      "tipo": "live",
+      "url": "https://demo.log360.com/AppsHome.do"
+    },
+    {
+      "nome": "EventLog Analyzer",
+      "categoria": "siem",
+      "tipo": "live",
+      "url": "https://demo.eventloganalyzer.com/event/index2.do?fromIndex=true"
+    },
+    {
+      "nome": "Cloud Security Plus",
+      "categoria": "siem",
+      "tipo": "live",
+      "url": "https://demo.cloudsecurityplus.com/"
+    },
+    {
+      "nome": "Analytics Plus",
+      "categoria": "analytics",
+      "tipo": "live",
+      "url": "https://analyticsplusdemo.manageengine.com/LiveDashboards.cc"
+    },
+    {
+      "nome": "SaaS Manager Plus",
+      "categoria": "analytics",
+      "tipo": "live",
+      "url": "https://saasmanagerplus.manageengine.com/demo.do#/dashboard/view/list"
+    },
+    {
+      "nome": "AppCreator",
+      "categoria": "analytics",
+      "tipo": "live",
+      "url": "https://www.manageengine.com/appcreator/demo.html"
+    },
+    {
+      "nome": "RMM Central",
+      "categoria": "msp",
+      "tipo": "live",
+      "url": "https://demo.rmmcentral.com/"
+    },
+    {
+      "nome": "Endpoint Central MSP",
+      "categoria": "msp",
+      "tipo": "live",
+      "url": "https://demo.endpointcentralmsp.com/client#/demo"
+    },
+    {
+      "nome": "ServiceDesk Plus MSP",
+      "categoria": "msp",
+      "tipo": "live",
+      "url": "https://demo.servicedeskplusmsp.com/"
+    },
+    {
+      "nome": "Mobile Device Manager Plus MSP",
+      "categoria": "msp",
+      "tipo": "live",
+      "url": "https://demo.mobiledevicemanagerplusmsp.com/client"
+    },
+    {
+      "nome": "OpManager MSP",
+      "categoria": "msp",
+      "tipo": "live",
+      "url": "https://demo.opmanagermsp.com/"
+    },
+    {
+      "nome": "Log360 MSSP",
+      "categoria": "msp",
+      "tipo": "live",
+      "url": "https://log360mssp.manageenginedemo.com/webclient/index.html"
+    }
+  ]
+};
+  /* ============================================================ */
+
+  const $ = s => document.querySelector(s);
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
+  const colorVars = c => `--c:var(--${c});--cd:var(--${c}-dim)`;
+
+  const cats = DATA.categorias;
+  const catById = Object.fromEntries(cats.map(c => [c.id, c]));
+  const countBy = id => DATA.demos.filter(d => d.categoria === id).length;
+
+  let state = { q: '', cat: 'all' };
+
+  // ── stats e rodapé
+  $('#statTotal').textContent = DATA.demos.length;
+  $('#statCats').textContent = cats.length;
+  $('#statVideo').textContent = DATA.demos.filter(d => d.tipo === 'video').length;
+  $('#footerStatus').textContent = `${DATA.demos.length} demos · GitHub Pages`;
+  const [y, m, d] = DATA.atualizado_em.split('-');
+  $('#updated').textContent = `${d}/${m}/${y}`;
+
+  // ── chips + sidebar
+  const allChip = `<button class="chip active" data-cat="all">Todas <span class="chip-count">${DATA.demos.length}</span></button>`;
+  $('#chips').innerHTML = allChip + cats.map(c =>
+    `<button class="chip" data-cat="${c.id}" style="${colorVars(c.cor)}">${c.icone} ${esc(c.nome)} <span class="chip-count">${countBy(c.id)}</span></button>`
+  ).join('');
+
+  $('#navCats').innerHTML =
+    `<button class="nav-item active" data-cat="all"><span class="nav-item-icon">✨</span><span class="nav-item-text">Todas</span><span class="nav-item-count">${DATA.demos.length}</span></button>` +
+    cats.map(c =>
+      `<button class="nav-item" data-cat="${c.id}" style="${colorVars(c.cor)}"><span class="nav-item-icon">${c.icone}</span><span class="nav-item-text">${esc(c.nome)}</span><span class="nav-item-count">${countBy(c.id)}</span></button>`
+    ).join('');
+
+  // ── seções e cards (renderizados uma vez; o filtro só esconde/mostra)
+  $('#content').innerHTML = cats.map(c => {
+    const items = DATA.demos.filter(d => d.categoria === c.id);
+    if (!items.length) return '';
+    return `<section class="section" data-section="${c.id}" style="${colorVars(c.cor)}">
+      <div class="section-header">
+        <div class="section-icon">${c.icone}</div>
+        <h2 class="section-title">${esc(c.nome)}</h2>
+        <span class="section-count" data-count>${items.length}</span>
+      </div>
+      <div class="grid">${items.map(card).join('')}</div>
+    </section>`;
+  }).join('');
+
+  function card(d) {
+    const c = catById[d.categoria];
+    const video = d.tipo === 'video';
+    return `<article class="card" data-name="${esc(norm(d.nome + ' ' + c.nome + ' ' + host(d.url)))}">
+      <div class="card-top">
+        <span class="tag">${esc(c.nome)}</span>
+        ${video ? '<span class="badge-video">▶ vídeo</span>' : ''}
+      </div>
+      <div>
+        <h3 class="card-name">${esc(d.nome)}</h3>
+        <div class="card-domain" title="${esc(d.url)}">${esc(host(d.url))}</div>
+      </div>
+      ${d.obs ? `<div class="card-obs">${esc(d.obs)}</div>` : ''}
+      <div class="card-actions">
+        <a class="btn btn-primary" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer" aria-label="${video ? 'Assistir vídeo' : 'Abrir demo'} de ${esc(d.nome)} em nova aba">${video ? 'Assistir ↗' : 'Abrir demo ↗'}</a>
+        <button class="btn btn-ghost" data-copy="${esc(d.url)}" aria-label="Copiar link da demo de ${esc(d.nome)}">Copiar link</button>
+      </div>
+    </article>`;
+  }
+
+  // ── filtro
+  function apply() {
+    const q = norm(state.q.trim());
+    let total = 0;
+    document.querySelectorAll('.section').forEach(sec => {
+      const catOk = state.cat === 'all' || sec.dataset.section === state.cat;
+      let n = 0;
+      sec.querySelectorAll('.card').forEach(el => {
+        const show = catOk && (!q || el.dataset.name.includes(q));
+        el.hidden = !show;
+        if (show) n++;
+      });
+      sec.hidden = n === 0;
+      sec.querySelector('[data-count]').textContent = n;
+      total += n;
+    });
+    $('#empty').classList.toggle('show', total === 0);
+    document.querySelectorAll('[data-cat]').forEach(b => b.classList.toggle('active', b.dataset.cat === state.cat));
+    $('#searchBox').classList.toggle('has-value', !!state.q);
+  }
+
+  function setCat(cat) { state.cat = cat; apply(); closeMenu(); }
+
+  document.addEventListener('click', e => {
+    const catBtn = e.target.closest('[data-cat]');
+    if (catBtn) {
+      const cat = catBtn.dataset.cat;
+      setCat(state.cat === cat && cat !== 'all' ? 'all' : cat);
+      if (catBtn.closest('.sidebar')) window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const copyBtn = e.target.closest('[data-copy]');
+    if (copyBtn) copy(copyBtn.dataset.copy, copyBtn);
+  });
+
+  const input = $('#search');
+  input.addEventListener('input', () => { state.q = input.value; apply(); });
+  $('#searchClear').addEventListener('click', () => { input.value = ''; state.q = ''; apply(); input.focus(); });
+  $('#resetBtn').addEventListener('click', () => { input.value = ''; state = { q: '', cat: 'all' }; apply(); });
+
+  document.addEventListener('keydown', e => {
+    const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+    if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) {
+      e.preventDefault(); input.focus(); input.select();
+    } else if (e.key === 'Escape') {
+      if (document.activeElement === input && input.value) { input.value = ''; state.q = ''; apply(); }
+      else { input.blur(); closeMenu(); }
+    }
+  });
+
+  // ── copiar link
+  let toastTimer;
+  function toast(msg) {
+    const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+  }
+  async function copy(text, btn) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch {}
+      ta.remove();
+    }
+    btn.textContent = 'Copiado ✓'; btn.classList.add('ok');
+    toast('Link copiado');
+    setTimeout(() => { btn.textContent = 'Copiar link'; btn.classList.remove('ok'); }, 1500);
+  }
+
+  // ── menu mobile
+  const sidebar = $('#sidebar'), overlay = $('#overlay');
+  function closeMenu() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+  $('#hamburger').addEventListener('click', () => { sidebar.classList.add('open'); overlay.classList.add('open'); });
+  overlay.addEventListener('click', closeMenu);
+
+  apply();
+  </script>
+</body>
+</html>
